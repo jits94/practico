@@ -2,23 +2,25 @@
   <native-base-provider>
     <scrollView>
       <box p="40px">
+        <center><text mb="6">MATRICES</text></center>
         <text>Filas</text>
-        <input type="text"/>
+        <input type="text" v-model="filas"/>
         <text>Columnas</text>
-        <input type="text"/>
+        <input type="text" v-model="columnas"/>
         <box pt="30px">
-          <button P="10px" size="sm">GENERAR</button> 
+          <button P="10px" size="sm" :on-press="generarMatriz">GENERAR</button> 
         </box>
       </box>
-      <box maxWidth="100%" alignItems="center" bg="#3aba1c"> 
-          <vStack space="2.5" mt="4" px="8">     
-              <box v-for="i in filas" v-bind:key="i.id">
+      <box maxWidth="100%" alignItems="center" > 
+          <vStack space="2.5" px="8">     
+              <box v-for="i in Number(fila)" :key="i.idFilas">
                 <stack direction="row" > 
-                  <box v-for="j in columnas" v-bind:key="j.id"> 
-                    <input type="text" width="50px" h="50px" m="1" defaultValue="0"/>
+                  <box v-for="j in Number(columna)" :key="j.idColumnas"> 
+                    <input type="text" width="50px" h="50px" m="1" bg="#3aba1c" v-model="matriz[idFilas,idColumnas]"/>
                   </box> 
                 </stack>         
-              </box>   
+              </box>    
+                
           <vStack>
         </box>
       <scrollView>
@@ -28,9 +30,35 @@
   import { NativeBaseProvider,Button, Box,Container, Text,Heading, Stack, HStack, Center, Input, ScrollView, VStack} from "native-base";
   export default{
     data:{
-    filas: 4,
-    columnas: 3,
+    idFilas: "",
+    idColumnas: "",
+    filas: 0,
+    columnas: 0,
+    matriz:[],
+    fila: 0,
+    columna: 0,
     },
-    components:{NativeBaseProvider,Button, Box, Container, Text, Heading, Stack, HStack, Center,Input,ScrollView, VStack}
+    components:{NativeBaseProvider,Button, Box, Container, Text, Heading, Stack, HStack, Center,Input,ScrollView, VStack},
+    methods:{
+      generarMatriz(){
+        
+        this.matriz=[]
+        this.fila = this.filas;
+        this.columna = this.columnas;
+
+          var auxiliar =[];
+
+          for(var i = 0; i<this.fila; i++){
+            for(var j = 0; j<this.columna; j++){
+              auxiliar.push(0);
+            }
+            this.matriz.push(auxiliar);
+            auxiliar=[]
+          }
+        
+       
+      
+      }
+    }
   }
 </script>
