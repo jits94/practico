@@ -13,14 +13,14 @@
       </box>
       <box maxWidth="100%" alignItems="center" > 
           <vStack space="2.5" px="8">     
-              <box v-for="i in Number(fila)" :key="i.idFilas">
+              <box v-for="fila in matriz">
                 <stack direction="row" > 
-                  <box v-for="j in Number(columna)" :key="j.idColumnas"> 
-                    <input type="text" width="50px" h="50px" m="1" bg="#3aba1c" v-model="matriz[idFilas,idColumnas]"/>
+                  <box v-for="columna in fila"> 
+                    <input type="text" width="50px" h="50px" m="1" bg="#3aba1c" v-model="columna.value"/>
                   </box> 
                 </stack>         
               </box>    
-                
+               <text> {{matriz}}</text>
           <vStack>
         </box>
       <scrollView>
@@ -47,10 +47,11 @@
         this.columna = this.columnas;
 
           var auxiliar =[];
-
+          var cont= 0;
           for(var i = 0; i<this.fila; i++){
             for(var j = 0; j<this.columna; j++){
-              auxiliar.push(0);
+              auxiliar.push({id: cont,value:'0'});
+              cont++;
             }
             this.matriz.push(auxiliar);
             auxiliar=[]
